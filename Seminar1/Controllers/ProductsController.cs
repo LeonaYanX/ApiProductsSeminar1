@@ -2,13 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Seminar1.Models;
 using Seminar1.ViewModels;
+using System.Text;
 
 namespace Seminar1.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+
+  
     public class ProductsController : ControllerBase
     {
+       
         [HttpPost(template: "addgroup")]
         public ActionResult AddGroup(string name, string description) 
         {

@@ -2,8 +2,17 @@
 
 namespace Seminar1.Models
 {
+   
     public partial class ProductsContext : DbContext
     {
+        private readonly string? _connectionString;
+
+        public ProductsContext(string connectionString) => _connectionString = connectionString;
+
+        public ProductsContext()
+        {
+        
+        }
 
         public virtual DbSet<ProductGroup> ProductGroups { get; set; }
 
@@ -11,9 +20,10 @@ namespace Seminar1.Models
 
         public virtual DbSet<Store> Stores { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) =>
+           optionsBuilder.UseLazyLoadingProxies().UseNpgsql(_connectionString);
 
-            => optionsBuilder.UseLazyLoadingProxies().UseNpgsql("Host=localhost;Username=example;Password=example;Database=Product");
+    
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
